@@ -49,9 +49,16 @@ public class Maze {
 
   */
   public String toString(){
-
-          return "WRITE THIS METHOD";
-
+    String ans = "";
+    for (int x = 0; x < maze.length; x ++) {
+      for (int y = 0; y < maze[x].length; y ++) {
+        ans += maze[x][y];
+        if (y == maze[x].length - 1) {
+          ans += "\n";
+        }
+      }
+    }
+    return ans;
   }
 
 
@@ -73,7 +80,7 @@ public class Maze {
           //and start solving at the location of the s.
 
           //return solve(???,???);
-          return 1; 
+          return 1;
   }
 
   /*
