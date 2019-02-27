@@ -76,6 +76,7 @@ public class Maze {
     }
     return coordinates;
   }
+
   public int solve(){
     int[] xy = findS (); //find the location of the S.
     maze[xy[0]][xy[1]] = ' '; //erase the S
@@ -84,27 +85,19 @@ public class Maze {
 
   /*
     Recursive Solve function:
-
     A solved maze has a path marked with '@' from S to E.
-
     Returns the number of @ symbols from S to E when the maze is solved,
     Returns -1 when the maze has no solution.
 
-
     Postcondition:
-
       The S is replaced with '@' but the 'E' is not.
-
       All visited spots that were not part of the solution are changed to '.'
-
       All visited spots that are part of the solution are changed to '@'
   */
+
   private int solve(int row, int col){ //you can add more parameters since this is private
-
-
       //automatic animation! You are welcome.
       if(animate){
-
           clearTerminal();
           System.out.println(this);
 
