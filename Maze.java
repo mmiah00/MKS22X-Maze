@@ -44,9 +44,7 @@ public class Maze {
   }
 
  /*Return the string that represents the maze.
-
    It should look like the text file with some characters replaced.
-
   */
   public String toString(){
     String ans = "";
@@ -61,26 +59,27 @@ public class Maze {
     return ans;
   }
 
-
-
   /*Wrapper Solve Function returns the helper function
-
     Note the helper function has the same name, but different parameters.
     Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
-
   */
+
+  private int[] findS () {
+    int[] coordinates = new int[2];
+    for (int y = 0; y < maze.length; y ++) {
+      for (int x = 0; x < maze[y].length; y ++) {
+        if (maze[y][x] == 'S') {
+          coordinates [0] = y;
+          coordinates [1] = x;
+        }
+      }
+    }
+    return coordinates;
+  }
   public int solve(){
-
-          //find the location of the S.
-
-
-          //erase the S
-
-
-          //and start solving at the location of the s.
-
-          //return solve(???,???);
-          return 1;
+    int[] xy = findS (); //find the location of the S.
+    maze[xy[0]][xy[1]] = ' '; //erase the S
+    return solve (xy[0], xy[1]); //start solving at the location of the s.
   }
 
   /*
