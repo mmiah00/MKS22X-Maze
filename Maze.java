@@ -64,7 +64,7 @@ public class Maze {
   private int[] findS () { //loops through the maze to find S
     int[] coordinates = new int[2];
     for (int y = 0; y < maze.length; y ++) {
-      for (int x = 0; x < maze[y].length; y ++) {
+      for (int x = 0; x < maze[y].length; x ++) {
         if (maze[y][x] == 'S') {
           coordinates [0] = y;
           coordinates [1] = x;
@@ -104,13 +104,13 @@ public class Maze {
         return steps;
       }
       else {
-        if (maze[row +1][col] == ' ') { //one down
-          maze[row + 1][col] = '@';
-          return solve (row + 1, col, steps + 1);
-        }
         if (maze[row-1][col] == ' ') { //one up
           maze[row - 1][col] = '@';
           return solve (row - 1, col, steps + 1);
+        }
+        if (maze[row + 1][col] == ' ') { //one down
+          maze[row + 1][col] = '@';
+          return solve (row + 1, col, steps + 1);
         }
         if (maze[row][col + 1] == ' ') { //one right
           maze[row][col + 1] = '@';
@@ -121,14 +121,12 @@ public class Maze {
           return solve (row, col - 1, steps + 1);
         }
         else {
-          maze[row][col] = '.';
+          if (maze[row][col] != '#') {
+            maze[row][col] = '.';
+          }
         }
+        return 0;
       }
-
-
-      //COMPLETE SOLVE
-
-      return -1; //so it compiles
   }
 
 
