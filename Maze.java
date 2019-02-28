@@ -5,7 +5,7 @@ public class Maze {
   private char[][]maze;
   private boolean animate;//false by default
 
-  public Maze (File f) throws FileNotFoundException {
+  public Maze (String f) throws FileNotFoundException {
     animate = false;
     Scanner inf = new Scanner (f);
     int numLines = 0;
@@ -43,9 +43,6 @@ public class Maze {
       System.out.println("\033[2J\033[1;1H");
   }
 
- /*Return the string that represents the maze.
-   It should look like the text file with some characters replaced.
-  */
   public String toString(){
     String ans = "";
     for (int x = 0; x < maze.length; x ++) {
@@ -64,7 +61,7 @@ public class Maze {
     Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
   */
 
-  private int[] findS () {
+  private int[] findS () { //loops through the maze to find S
     int[] coordinates = new int[2];
     for (int y = 0; y < maze.length; y ++) {
       for (int x = 0; x < maze[y].length; y ++) {
@@ -80,7 +77,7 @@ public class Maze {
   public int solve(){
     int[] xy = findS (); //find the location of the S.
     maze[xy[0]][xy[1]] = ' '; //erase the S
-    return solve (xy[0], xy[1]); //start solving at the location of the s.
+    return solve (xy[0], xy[1], 0); //start solving at the location of the s.
   }
 
   /*
@@ -95,14 +92,39 @@ public class Maze {
       All visited spots that are part of the solution are changed to '@'
   */
 
-  private int solve(int row, int col){ //you can add more parameters since this is private
-      //automatic animation! You are welcome.
+  private int solve(int row, int col, int steps){ //you can add more parameters since this is private
       if(animate){
           clearTerminal();
           System.out.println(this);
 
           wait(20);
       }
+
+      if (maze[row][col] == 'E') {
+        return steps;
+      }
+      else {
+        if (maze[row +1][col] == ' ') { //one down
+          maze[row + 1][col] = '@';
+          return solve (row + 1, col, steps + 1);
+        }
+        if (maze[row-1][col] == ' ') { //one up
+          maze[row - 1][col] = '@';
+          return solve (row - 1, col, steps + 1);
+        }
+        if (maze[row][col + 1] == ' ') { //one right
+          maze[row][col + 1] = '@';
+          return solve (row, col + 1, steps + 1);
+        }
+        if (maze[row][col -1] == ' ') { //one left
+          maze[row][col - 1] = '@';
+          return solve (row, col - 1, steps + 1);
+        }
+        else {
+          maze[row][col] = '.';
+        }
+      }
+
 
       //COMPLETE SOLVE
 
