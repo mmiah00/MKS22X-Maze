@@ -40,11 +40,9 @@ public class Maze {
        }
    }
 
-
   public void setAnimate(boolean b){
       animate = b;
   }
-
 
   public void clearTerminal(){
       //erase terminal, go to top left of screen.
@@ -111,6 +109,7 @@ public class Maze {
       if (maze[row][col] == 'E') {
         return steps;
       }
+
       else {
         if (maze[row-1][col] == ' ') { //one up
           maze[row - 1][col] = '@';
@@ -128,12 +127,22 @@ public class Maze {
           maze[row][col - 1] = '@';
           return solve (row, col - 1, steps + 1);
         }
-        else {
-          if (maze[row][col] != '#') {
-            maze[row][col] = '.';
-          }
+        maze[row][col] = '.'; //after checking all directions, if it doesnt work put a dot
+
+        //checking each direction and going back to find another path
+        if (maze[row-1][col] == '@') {
+          return solve (row - 1, col, steps - 1);
         }
-        return 0;
+        if (maze[row + 1][col] == '@') {
+          return solve (row + 1, col, steps - 1);
+        }
+        if (maze[row][col + 1] == '@') {
+          return solve (row, col + 1, steps - 1);
+        }
+        if (maze[row][col -1] == '@') {
+          return solve (row, col - 1, steps - 1);
+        }
+        return -1; //if unsolvable
       }
   }
 
