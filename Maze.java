@@ -2,25 +2,33 @@ import java.util.*;
 import java.io.*;
 
 public class Maze {
-  private char[][]maze;
+  private char[][] maze;
   private boolean animate;//false by default
 
   public Maze (String f) throws FileNotFoundException {
     animate = false;
-    Scanner inf = new Scanner (f);
+    readFile (f);
+  }
+
+  private void readFile (String f) throws FileNotFoundException {
+    File text = new File (f);
+    Scanner inf = new Scanner (text);
     int numLines = 0;
     int charsPerLine = 0;
     while (inf.hasNextLine()) {
-      numLines ++;
       String line = inf.nextLine();
+      numLines ++;
       charsPerLine = line.length ();
     }
+    inf = new Scanner (text);
     maze = new char[numLines][charsPerLine];
-    for (int x = 0; x < maze.length && inf.hasNextLine (); x ++) {
+    int row = 0;
+    while (inf.hasNextLine ()) {
       String line = inf.nextLine ();
-      for (int y = 0; y < maze.length; y ++) {
-        maze[x][y] = line.charAt (y);
+      for (int col = 0; col < line.length (); col ++) {
+        maze[row][col] = line.charAt (col);
       }
+      row ++;
     }
   }
 
